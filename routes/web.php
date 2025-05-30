@@ -27,5 +27,8 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile/readed', [ProfileController::class, 'readed'])->name('profile.readed');
+    Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
+    Route::get('/profile/liked', [ProfileController::class, 'liked'])->name('profile.liked');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

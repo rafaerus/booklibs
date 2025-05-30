@@ -15,4 +15,19 @@ class ProfileController extends Controller
     {
         return view('profile.index');
     }
+
+    public function readed()
+    {
+        return view('profile.readed');
+    }
+
+    public function saved()
+    {
+        return view('profile.saved');
+    }
+
+    public function liked()
+    {
+        return view('profile.liked');
+    }
 }
