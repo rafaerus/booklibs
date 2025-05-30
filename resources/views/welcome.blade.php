@@ -5,21 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Booklibs - Your Digital Library</title>
-
-        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Heroicons -->
         <script src="https://unpkg.com/@heroicons/react@2.0.18/24/outline/esm/index.js"></script>
-
-        <!-- Tailwind CSS -->
         <script src="https://cdn.tailwindcss.com"></script>
-
-        <!-- Custom CSS -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-        <!-- Styles -->
         <style>
             body {
                 font-family: 'Figtree', sans-serif;
@@ -36,7 +28,6 @@
     </head>
     <body class="antialiased">
         <div class="min-h-screen">
-            <!-- Navigation -->
             <nav class="bg-white border-b border-gray-100">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-16">
@@ -53,16 +44,22 @@
                                        placeholder="Book name or writer name" 
                                        class="search-input w-64 h-10 pl-10 pr-4 rounded-lg bg-gray-50 border-none focus:ring-0">
                             </div>
-                            <!-- Notification Icon -->
+                            @auth
+                                <a href="{{ route('profile') }}" class="text-gray-600 hover:text-gray-900">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </a>
+                            @else
+                                <a href="{{ route('auth.landing') }}" class="text-gray-600 hover:text-gray-900">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </a>
+                            @endauth
                             <button class="text-gray-600 hover:text-gray-900">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                                </svg>
-                            </button>
-                            <!-- Profile Icon -->
-                            <button class="text-gray-600 hover:text-gray-900">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </button>
                         </div>
@@ -70,9 +67,7 @@
                 </div>
             </nav>
 
-            <!-- Main Content -->
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <!-- Hero Search -->
                 <div class="mb-16">
                     <div class="relative w-full max-w-xl mx-auto">
                         <input type="text" 
@@ -81,11 +76,9 @@
                     </div>
                 </div>
 
-                <!-- Available Books -->
                 <div class="mb-12">
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Available Books</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Book Card 1 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=687&auto=format&fit=crop" 
@@ -98,7 +91,6 @@
                             </div>
                         </a>
 
-                        <!-- Book Card 2 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=1512&auto=format&fit=crop" 
@@ -111,7 +103,6 @@
                             </div>
                         </a>
 
-                        <!-- Book Card 3 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=687&auto=format&fit=crop" 
@@ -124,7 +115,6 @@
                             </div>
                         </a>
 
-                        <!-- Book Card 4 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=688&auto=format&fit=crop" 
@@ -139,11 +129,9 @@
                     </div>
                 </div>
 
-                <!-- Most Viewed -->
                 <div>
                     <h2 class="text-xl font-semibold text-gray-900 mb-6">Most Viewed</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        <!-- Book Card 1 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=1374&auto=format&fit=crop" 
@@ -155,8 +143,7 @@
                                 <p class="text-sm text-gray-500">Psychology</p>
                             </div>
                         </a>
-
-                        <!-- Book Card 2 -->
+            
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1476275466078-4007374efbbe?q=80&w=1529&auto=format&fit=crop" 
@@ -169,7 +156,6 @@
                             </div>
                         </a>
 
-                        <!-- Book Card 3 -->
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?q=80&w=687&auto=format&fit=crop" 
@@ -181,8 +167,7 @@
                                 <p class="text-sm text-gray-500">Magazine</p>
                             </div>
                         </a>
-
-                        <!-- Book Card 4 -->
+                    
                         <a href="#" class="book-card group">
                             <div class="aspect-[3/4] overflow-hidden rounded-lg bg-gray-100">
                                 <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=687&auto=format&fit=crop" 
