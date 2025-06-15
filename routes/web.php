@@ -4,9 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\BooksController::class, 'index'])->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/auth', function () {
@@ -31,4 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
     Route::get('/profile/liked', [ProfileController::class, 'liked'])->name('profile.liked');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/save-book', [\App\Http\Controllers\SavedBooksController::class, 'store'])->name('save.book');
+    Route::post('/like-book', [\App\Http\Controllers\LikedBooksController::class, 'store'])->name('like.book');
+    Route::get('/book/{id}', [\App\Http\Controllers\BooksController::class, 'show'])->name('book.detail');
+    Route::get('/profile/liked', [\App\Http\Controllers\LikedBooksController::class, 'index'])->name('profile.liked');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Liked_Books;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LikedBooksController extends Controller
 {
@@ -12,7 +13,12 @@ class LikedBooksController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $likedBooks = Liked_Books::with('book.category')
+            ->where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->get();
+        return view('profile.liked', compact('likedBooks'));
     }
 
     /**
@@ -28,7 +34,18 @@ class LikedBooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+        ]);
+        $user = Auth::user();
+        $liked = Liked_Books::firstOrCreate([
+            'user_id' => $user->id,
+            'book_id' => $request->book_id,
+        ]);
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'liked' => $liked]);
+        }
+        return back()->with('success', 'Book liked!');
     }
 
     /**

@@ -21,14 +21,11 @@ return new class extends Migration
             $table->foreignId('category_id')
                 ->constrained('categories')
                 ->onDelete('cascade');
-                //cover img
+            // Cover image
             $table->string('cover_image')->nullable();
-            //file path
+            // File path
             $table->string('file_path')->nullable();
-            //created at
-            $table->timestamp('created_at')->nullable();
-            //updated at
-            $table->timestamp('updated_at')->nullable();
+            // Hanya menggunakan timestamps() tanpa mendeklarasikan kolom secara manual
             $table->timestamps();
         });
     }

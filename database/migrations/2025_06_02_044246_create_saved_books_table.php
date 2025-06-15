@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved__books', function (Blueprint $table) {
+        Schema::create('saved_books', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             // book id
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
             // last created aat
             $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved__books');
+        Schema::dropIfExists('saved_books');
     }
 };

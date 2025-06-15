@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Saved_Books;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SavedBooksController extends Controller
 {
@@ -28,7 +29,18 @@ class SavedBooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'book_id' => 'required|exists:books,id',
+        ]);
+        $user = Auth::user();
+        $saved = Saved_Books::firstOrCreate([
+            'user_id' => $user->id,
+            'book_id' => $request->book_id,
+        ]);
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'saved' => $saved]);
+        }
+        return back()->with('success', 'Book saved!');
     }
 
     /**

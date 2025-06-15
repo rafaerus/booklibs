@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,6 +15,7 @@
         }
     </style>
 </head>
+
 <body class="antialiased">
     <div class="min-h-screen flex flex-col">
         <nav class="w-full px-6 py-4 flex justify-between items-center border-b">
@@ -47,20 +49,21 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                    @for ($i = 0; $i < 10; $i++)
+                    @forelse ($savedBooks as $history)
                     <div class="group">
                         <div class="aspect-[3/4] rounded-lg overflow-hidden bg-gray-100">
-                            <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73" alt="Book Cover" class="w-full h-full object-cover">
+                            <img src="{{ $history->book->cover_image ?? 'https://images.unsplash.com/photo-1544947950-fa07a98d237f' }}" alt="Book Cover" class="w-full h-full object-cover">
                         </div>
                         <div class="mt-2">
-                            <h3 class="text-sm font-medium text-gray-900">How Innovation Works</h3>
-                            <p class="text-sm text-gray-500">Non-fiction</p>
+                            <h3 class="text-sm font-medium text-gray-900">{{ $history->book->title }}</h3>
+                            <p class="text-sm text-gray-500">{{ $history->book->category->name ?? '-' }}</p>
                         </div>
-                        <button class="w-full mt-2 bg-gray-700 text-white py-2 rounded-lg hover:bg-gray-800">
-                            Add to Cart
-                        </button>
                     </div>
-                    @endfor
+                    @empty
+                    <div class="col-span-full text-center text-gray-500 py-10">
+                        You haven't saved any books yet.
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -78,4 +81,5 @@
         </footer>
     </div>
 </body>
-</html> 
+
+</html>

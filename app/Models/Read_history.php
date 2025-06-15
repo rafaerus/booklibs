@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Read_history extends Model
 {
     use HasFactory;
@@ -11,8 +12,12 @@ class Read_history extends Model
     protected $fillable = [
         'user_id',
         'book_id',
-        'read_at',
+        'last_read',
+        'created_at',
+        'updated_at',
     ];
+
+    protected $dates = ['last_read', 'created_at', 'updated_at'];
 
     public function user()
     {
@@ -24,8 +29,8 @@ class Read_history extends Model
         return $this->belongsTo(Books::class);
     }
 
-    public function getReadAtAttribute($value)
+    public function getLastReadAttribute($value)
     {
-        return \Carbon\Carbon::parse($value)->format('Y-m-d H:i:s');
+        return $value ? \Carbon\Carbon::parse($value)->format('Y-m-d H:i:s') : null;
     }
 }

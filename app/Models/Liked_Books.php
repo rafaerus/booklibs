@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Liked_Books extends Model
 {
     use HasFactory;
+
+    protected $table = 'liked_books';
 
     protected $fillable = [
         'user_id',

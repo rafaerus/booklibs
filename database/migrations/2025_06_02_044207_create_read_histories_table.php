@@ -16,8 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             //book id
             $table->foreignId('book_id')->constrained()->onDelete('cascade');
-            //last read
+            //created at
             $table->timestamp('last_read')->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
