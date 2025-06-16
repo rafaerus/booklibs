@@ -4,7 +4,12 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [\App\Http\Controllers\BooksController::class, 'index'])->name('home');
+use App\Models\Books;
+
+Route::get('/', function () {
+    $books = Books::with('category')->get();
+    return view('welcome', compact('books'));
+})->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::get('/auth', function () {
@@ -28,6 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/readed', [ProfileController::class, 'readed'])->name('profile.readed');
     Route::get('/profile/saved', [ProfileController::class, 'saved'])->name('profile.saved');
     Route::get('/profile/liked', [ProfileController::class, 'liked'])->name('profile.liked');
+    Route::get('/profile/crud', [ProfileController::class, 'crud'])->name('profile.crud');
+
+    Route::resource('users', \App\Http\Controllers\UserController::class)->except(['show']);
+    Route::resource('books', \App\Http\Controllers\BooksController::class)->except(['show']);
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::post('/save-book', [\App\Http\Controllers\SavedBooksController::class, 'store'])->name('save.book');
     Route::post('/like-book', [\App\Http\Controllers\LikedBooksController::class, 'store'])->name('like.book');

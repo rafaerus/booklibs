@@ -16,7 +16,7 @@ class BooksController extends Controller
     public function index()
     {
         $books = \App\Models\Books::with('category')->get();
-        return view('welcome', compact('books'));
+        return view('profile.books.index', compact('books'));
     }
 
     /**
@@ -24,7 +24,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        $categories = \App\Models\Category::all();
+        return view('profile.books.create', compact('categories'));
     }
 
     /**
@@ -32,7 +33,18 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'author' => ['required', 'string', 'max:255'],
+            'isbn' => ['required', 'string', 'max:255'],
+            'published_at' => ['required', 'date'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        \App\Models\Books::create($validated);
+
+        return redirect()->route('books.index')->with('success', 'Book created successfully.');
     }
 
     /**
@@ -60,24 +72,37 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Books $books)
+    public function edit(Books $book)
     {
-        //
+        $categories = \App\Models\Category::all();
+        return view('profile.books.edit', compact('book', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Books $books)
+    public function update(Request $request, Books $book)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'author' => ['required', 'string', 'max:255'],
+            'isbn' => ['required', 'string', 'max:255'],
+            'published_at' => ['required', 'date'],
+            'category_id' => ['required', 'exists:categories,id'],
+            'description' => ['nullable', 'string'],
+        ]);
+
+        $book->update($validated);
+
+        return redirect()->route('books.index')->with('success', 'Book updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Books $books)
+    public function destroy(Books $book)
     {
-        //
+        $book->delete();
+        return redirect()->route('books.index')->with('success', 'Book deleted successfully.');
     }
 }

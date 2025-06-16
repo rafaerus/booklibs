@@ -57,4 +57,9 @@ class ProfileController extends Controller
     {
         return view('profile.liked');
     }
+
+    public function crud()
+    {
+        return view('profile.crud');
+    }
 }

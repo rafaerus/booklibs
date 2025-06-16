@@ -46,7 +46,7 @@
                 </div>
 
                 <!-- Navigation Buttons -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                     <a href="{{ route('profile.readed') }}" class="bg-white p-6 rounded-lg border border-gray-200 hover:border-cyan-500 transition-colors group">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-medium text-gray-900 group-hover:text-cyan-500">Books Read</h3>
@@ -76,6 +76,18 @@
                         </div>
                         <p class="text-sm text-gray-500">Browse through your favorite books</p>
                     </a>
+
+                    @if(Auth::user()->role === 'admin')
+                    <a href="{{ route('profile.crud') }}" class="bg-white p-6 rounded-lg border border-gray-200 hover:border-cyan-500 transition-colors group">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium text-gray-900 group-hover:text-cyan-500">CRUD</h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 group-hover:text-cyan-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            </svg>
+                        </div>
+                        <p class="text-sm text-gray-500">Manage your CRUD operations here</p>
+                    </a>
+                    @endif
                 </div>
 
                 <!-- Account Actions -->
